@@ -1,5 +1,5 @@
 FROM python:3.11-alpine
-RUN apk add --no-cache mariadb-connector-c
+RUN apk add --no-cache mariadb-connector-c mysql-client
 RUN apk add mysql-client
 COPY . /app
 WORKDIR /app
