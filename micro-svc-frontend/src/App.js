@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function App() {
   const [studentTable, setStudentTable] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(process.env.BACKEND_URL);
-        const result = await response.text();
-        setStudentTable(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const handleClick = async () => {
+    const response = await fetch(process.env.REACT_APP_BACKEND_URL);
+    const result = await response.text();
+    setStudentTable(result);
+  };
 
   return (
     <>
-      <h1>Welcome to the Student List</h1>
+      <h1>Hello Guys....Welcome </h1>
+      <button onClick={handleClick}>Get Users Info</button>
       <div dangerouslySetInnerHTML={{ __html: studentTable }} />
     </>
   );
