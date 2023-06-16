@@ -1,6 +1,9 @@
 import mysql.connector
 from flask import Flask, render_template
 import os
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 app = Flask(__name__)
 
@@ -25,7 +28,7 @@ table_name = os.getenv('TABLE_NAME', 'default-table')
 
 @app.route('/')
 def index():
-    
+
     cnx = mysql.connector.connect(user=user, password=password,
                                    host=host, database=database)
     cursor = cnx.cursor()
