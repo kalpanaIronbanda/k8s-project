@@ -7,7 +7,8 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install && npm install dotenv
+RUN npm install 
+RUN npm install dotenv
 
 # Copy the rest of the app's source code to the container
 COPY . .
