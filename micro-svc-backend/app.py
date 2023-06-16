@@ -2,7 +2,6 @@ import mysql.connector
 from flask import Flask, render_template
 import os
 import logging
-import psycopg2
 from dotenv import load_dotenv
 from db_connector import DbConnector
 
