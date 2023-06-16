@@ -7,6 +7,11 @@ from db_connector import DbConnector
 
 app = Flask(__name__)
 
+
+#set logger
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # To accept requests from all origins
 @app.after_request
 def add_cors_headers(response):
