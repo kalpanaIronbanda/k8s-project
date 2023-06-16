@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: micro-svc-1-config
 data:
-  region: ap-southeast-2
-  queue_url: https://sqs.ap-southeast-2.amazonaws.com/315073111691/sqs-process
+  AWS_REGION: ap-southeast-2
+  QUEUE_URL: https://sqs.ap-southeast-2.amazonaws.com/315073111691/sqs-process

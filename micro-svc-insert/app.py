@@ -2,13 +2,16 @@ from flask import Flask, render_template, request, redirect
 import boto3
 import json
 import os
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 app = Flask(__name__)
 
 
 # AWS SQS configuration
-region = os.environ.get('region')
-queue_url = os.environ.get('queue_url')
+region = os.environ.get('AWS_REGION')
+queue_url = os.environ.get('QUEUE_URL')
 
 # Create an SQS client
 sqs = boto3.client('sqs', region_name=region)

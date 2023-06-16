@@ -4,6 +4,9 @@ import boto3
 import mysql.connector
 import json
 import os
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 app = Flask(__name__)
 
