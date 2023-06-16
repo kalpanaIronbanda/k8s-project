@@ -43,4 +43,3 @@ spec:
                 secretKeyRef:
                   name: backend-secret
                   key: db-password
-

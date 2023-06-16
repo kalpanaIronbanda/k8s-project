@@ -6,7 +6,7 @@ data:
   db-user: admin
   db-host: database-1.c46o7dwnirhl.ap-southeast-2.rds.amazonaws.com
   db-name: sqs
-  db-table: UserInfoList
+  db-table: UserInfoList 
 
 
 
