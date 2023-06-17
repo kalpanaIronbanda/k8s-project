@@ -4,8 +4,8 @@ metadata:
   name: micro-svc-2-config
 data:
   AWS_REGION: ap-southeast-2
-  SQS_QUEUE_URL: https://sqs.ap-southeast-2.amazonaws.com/315073111691/sqs-process
-  DB_HOST: database-1.c46o7dwnirhl.ap-southeast-2.rds.amazonaws.com
-  DB_USER: admin
-  DB_NAME: sqs
-  DB_TABLE: userinfo
+  SQS_QUEUE_URL: https://sqs.ap-southeast-2.amazonaws.com/315073111691/micro-svc-insert-sqs
+  DB_HOST: micro-svc-2-rds.c46o7dwnirhl.ap-southeast-2.rds.amazonaws.com
+  DB_USER: thanshi
+  DB_NAME: userinfo
+  DB_TABLE: UserInfoList
