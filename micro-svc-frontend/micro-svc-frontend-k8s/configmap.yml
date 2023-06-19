@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: frontend-config
 data:
-  backend-url: "http://adb149fbef402445799a522daedaeee6-2017509811.ap-southeast-2.elb.amazonaws.com/"
+  backend-url: "http://backend-service"
