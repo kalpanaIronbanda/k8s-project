@@ -4,9 +4,15 @@ import boto3
 import mysql.connector
 import json
 import os
+#From prometheus
+from prometheus_client import make_wsgi_app, Counter
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from dotenv import load_dotenv
 
 load_dotenv() 
+
+# Define Prometheus Metrics
+REQUEST_COUNT = Counter('flask_app_request_count', 'Total number of requests')
 
 app = Flask(__name__)
 
@@ -79,7 +85,9 @@ def start_message_processing():
 @app.route('/')
 def insert_data():
     start_message_processing()
-    return jsonify({'message': 'Insert successfully.'})
+    REQUEST_COUNT.inc()
+    return jsonify({'message': 'Inserted successfully.'})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000, threaded=True)
+    from werkzeug.serving import run_simple
+    run_simple('0.0.0.0', 5000, app_dispatch)

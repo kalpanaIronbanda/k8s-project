@@ -2,8 +2,13 @@ import mysql.connector
 from flask import Flask, render_template
 import os
 from dotenv import load_dotenv
+from prometheus_client import make_wsgi_app, Counter
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 load_dotenv() 
+
+# Define Prometheus Metrics
+REQUEST_COUNT = Counter('flask_app_request_count', 'Total number of requests')
 
 app = Flask(__name__)
 
@@ -36,7 +41,9 @@ def index():
     cursor.execute(query)
     rows = cursor.fetchall()
     cnx.close()
+    REQUEST_COUNT.inc()
     return render_template('table.html', rows=rows)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, debug=True)
+    from werkzeug.serving import run_simple
+    run_simple('0.0.0.0', 80, app_dispatch)
