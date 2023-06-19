@@ -2,17 +2,12 @@ from flask import Flask, render_template, request, redirect
 import boto3
 import json
 import os
-#for metrics
 from prometheus_client import make_wsgi_app, Counter
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
-#for loading .env values
 from dotenv import load_dotenv
-load_dotenv() 
 
-# Define Prometheus Metrics
-REQUEST_COUNT = Counter('flask_app_request_count', 'Total number of requests')
+load_dotenv()
 
-#main code 
 app = Flask(__name__)
 
 # AWS SQS configuration
@@ -21,6 +16,9 @@ queue_url = os.environ.get('QUEUE_URL')
 
 # Create an SQS client
 sqs = boto3.client('sqs', region_name=region)
+
+# Define Prometheus Metrics
+REQUEST_COUNT = Counter('flask_app_request_count', 'Total number of requests')
 
 # Function to store data in SQS
 def store_data_in_sqs(name, email, additional_data):
@@ -39,17 +37,6 @@ def store_data_in_sqs(name, email, additional_data):
 
     return response
 
-# Function to retrieve messages from SQS
-def retrieve_messages_from_sqs():
-    response = sqs.receive_message(
-        QueueUrl=queue_url,
-        MaxNumberOfMessages=10
-    )
-
-    messages = response.get('Messages', [])
-
-    return messages
-
 # Homepage route
 @app.route('/')
 def index():
@@ -64,24 +51,9 @@ def store_data():
     additional_data = request.form.get('additional_data')
 
     response = store_data_in_sqs(name, email, additional_data)
-    print("data insert sucessfully")
+    print("Data inserted successfully")
 
-    return ("successfull")
-
-# # View SQS data route
-# @app.route('/view_data')
-# def view_data():
-#     messages = retrieve_messages_from_sqs()
-
-#     data = []
-#     for message in messages:
-#         body = json.loads(message['Body'])
-#         name = body['name']
-#         email = body['email']
-#         additional_data = body['additionalData']
-#         data.append({'name': name, 'email': email, 'additional_data': additional_data})
-
-#     return render_template('view_data.html', data=data)
+    return "success"
 
 # Create Prometheus WSGI Middleware
 app_dispatch = DispatcherMiddleware(app, {
@@ -91,4 +63,3 @@ app_dispatch = DispatcherMiddleware(app, {
 if __name__ == '__main__':
     from werkzeug.serving import run_simple
     run_simple('0.0.0.0', 5000, app_dispatch)
-    #app.run(debug=True, host='0.0.0.0', port=5000)
