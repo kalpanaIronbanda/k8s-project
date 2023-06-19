@@ -2,12 +2,18 @@ from flask import Flask, render_template, request, redirect
 import boto3
 import json
 import os
+#for metrics
+from prometheus_client import make_wsgi_app, Counter
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+#for loading .env values
 from dotenv import load_dotenv
-
 load_dotenv() 
 
-app = Flask(__name__)
+# Define Prometheus Metrics
+REQUEST_COUNT = Counter('flask_app_request_count', 'Total number of requests')
 
+#main code 
+app = Flask(__name__)
 
 # AWS SQS configuration
 region = os.environ.get('AWS_REGION')
@@ -47,6 +53,7 @@ def retrieve_messages_from_sqs():
 # Homepage route
 @app.route('/')
 def index():
+    REQUEST_COUNT.inc()
     return render_template('index.html')
 
 # Store data route
@@ -76,5 +83,12 @@ def store_data():
 
 #     return render_template('view_data.html', data=data)
 
+# Create Prometheus WSGI Middleware
+app_dispatch = DispatcherMiddleware(app, {
+    '/metrics': make_wsgi_app()
+})
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    from werkzeug.serving import run_simple
+    run_simple('0.0.0.0', 5000, app_dispatch)
+    #app.run(debug=True, host='0.0.0.0', port=5000)
