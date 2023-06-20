@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: micro-svc-2-config
 data:
-  AWS_REGION: ap-southeast-2
-  SQS_QUEUE_URL: https://sqs.ap-southeast-2.amazonaws.com/315073111691/micro-svc-insert-1
-  DB_HOST: micro-svc-2-rds.c46o7dwnirhl.ap-southeast-2.rds.amazonaws.com
+  AWS_REGION: eu-north-1
+  SQS_QUEUE_URL: https://sqs.eu-north-1.amazonaws.com/315073111691/micro-svc-insert
+  DB_HOST: micro-svc-rds.ckc4evhlp36y.eu-north-1.rds.amazonaws.com
   DB_USER: thanshi
   DB_NAME: userinfo
   DB_TABLE: UserInfoList

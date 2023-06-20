@@ -1,9 +1,9 @@
 import mysql.connector
 from flask import Flask, render_template
 import os
-from dotenv import load_dotenv
 from prometheus_client import make_wsgi_app, Counter
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from dotenv import load_dotenv
 
 load_dotenv() 
 

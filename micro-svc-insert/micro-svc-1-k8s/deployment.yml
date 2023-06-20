@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: micro-svc-1-container
-          image: 315073111691.dkr.ecr.ap-southeast-2.amazonaws.com/micro-svc-frontend:latest
+          image: 315073111691.dkr.ecr.ap-southeast-2.amazonaws.com/micro-svc-insert:latest
           ports:
             - containerPort: 5000
           envFrom:

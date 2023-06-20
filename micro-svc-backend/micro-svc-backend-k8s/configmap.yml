@@ -4,7 +4,7 @@ metadata:
   name: backend-config
 data:
   db-user: thanshi
-  db-host: micro-svc-2-rds.c46o7dwnirhl.ap-southeast-2.rds.amazonaws.com
+  db-host: micro-svc-rds.ckc4evhlp36y.eu-north-1.rds.amazonaws.com
   db-name: userinfo
   db-table: UserInfoList 
 
