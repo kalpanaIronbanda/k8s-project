@@ -44,6 +44,10 @@ def index():
     REQUEST_COUNT.inc()
     return render_template('table.html', rows=rows)
 
+app_dispatch = DispatcherMiddleware(app, {
+    '/metrics': make_wsgi_app()
+})
+
 if __name__ == "__main__":
     from werkzeug.serving import run_simple
     run_simple('0.0.0.0', 80, app_dispatch)

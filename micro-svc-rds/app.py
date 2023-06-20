@@ -88,6 +88,10 @@ def insert_data():
     REQUEST_COUNT.inc()
     return jsonify({'message': 'Inserted successfully.'})
 
+app_dispatch = DispatcherMiddleware(app, {
+    '/metrics': make_wsgi_app()
+})
+
 if __name__ == '__main__':
     from werkzeug.serving import run_simple
     run_simple('0.0.0.0', 5000, app_dispatch)
