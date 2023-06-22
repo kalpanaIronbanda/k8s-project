@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-app
-          image: 315073111691.dkr.ecr.ap-southeast-2.amazonaws.com/micro-svc-backend:latest
+          image: 315073111691.dkr.ecr.ap-southeast-2.amazonaws.com/micro-svc-backend@sha256:0914588ffa1fe4b4551eb92b13f90987749a90b20bcf07c0ddb13f511ac43c75
           ports:
             - containerPort: 80
           env:

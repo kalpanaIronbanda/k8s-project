@@ -1,10 +1,9 @@
 import mysql.connector
 from flask import Flask, render_template
 import os
-from prometheus_client import make_wsgi_app, Counter
+from prometheus_client import make_wsgi_app, Counter 
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from dotenv import load_dotenv
-
 load_dotenv() 
 
 # Define Prometheus Metrics
@@ -29,7 +28,7 @@ database = os.getenv('DB_NAME', 'default-database')
 password = os.getenv('DB_PASSWORD')
 
 # Read table name from environment variable
-table_name = os.getenv('TABLE_NAME', 'default-table')
+table_name = os.getenv('DB_TABLE', 'default-table')
 
 @app.route('/')
 def index():
